@@ -1,0 +1,27 @@
+{
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/aws/serverless-application-model/main/samtranslator/schema/schema.json": [
+        "template.yaml",
+        "**/template.yaml",
+        "**/template.yml",
+        "**/*sam.yaml",
+        "**/*sam.yml",
+        "file:///home/senioris/develop/push-sms-api/template.yaml"
+    ]
+},
+  "yaml.customTags": [
+    "!Ref",
+    "!Sub",
+    "!GetAtt",
+    "!Join",
+    "!Select",
+    "!Split",
+    "!Base64",
+    "!Cidr",
+    "!FindInMap",
+    "!GetAZs",
+    "!ImportValue",
+    "!Transform"
+  ],
+  "cfnLint.validateUsingJsonSchema": true
+}

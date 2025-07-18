@@ -1,0 +1,53 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'push-sms
+
+  Sample SAM Template for push-sms
+
+  '
+Globals:
+  Function:
+    Timeout: 3
+    LoggingConfig:
+      LogFormat: JSON
+Resources:
+  PushSmsTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: PushSmsNotifications
+      DisplayName: Push SMS Notifications
+  PushSmsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: PushSmsFunction
+      Handler: app.lambdaHandler
+      Runtime: nodejs22.x
+      Architectures:
+      - x86_64
+      Environment:
+        Variables:
+          PHONE_NUMBER: '+81901234567'
+          SNS_TOPIC_ARN:
+            Ref: PushSmsTopic
+          NODE_OPTIONS: ' --enable-source-maps'
+      Policies:
+      - SNSPublishMessagePolicy:
+          TopicName:
+            Fn::GetAtt:
+            - PushSmsTopic
+            - TopicName
+      Events:
+        PushSms:
+          Type: Api
+          Properties:
+            Path: /hooks
+            Method: get
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        EntryPoints:
+        - app.ts
+        Minify: true
+        Sourcemap: true
+        Target: es2020
+      SamResourceId: PushSmsFunction
