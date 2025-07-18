@@ -30,7 +30,6 @@ Resources:
       - x86_64
       Environment:
         Variables:
-          PHONE_NUMBER: "+81901234567"  # ここに送信先の電話番号を設定
           SNS_TOPIC_ARN: !Ref PushSmsTopic
       Policies:
         - SNSPublishMessagePolicy:
