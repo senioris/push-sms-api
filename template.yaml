@@ -36,11 +36,16 @@ Resources:
         - SNSPublishMessagePolicy:
             TopicName: !GetAtt PushSmsTopic.TopicName
       Events:
-        PushSms:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+        PushSmsGet:
+          Type: Api
           Properties:
             Path: /hooks
             Method: get
+        PushSmsPost:
+          Type: Api
+          Properties:
+            Path: /hooks
+            Method: post
     Metadata: # Manage esbuild properties
       BuildMethod: esbuild
       BuildProperties:
